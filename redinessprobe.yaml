@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redinessprobepod
+spec:
+  containers:
+    - name: http-cont
+      image: httpd:latest
+      ports:
+        - containerPort: 80
+      livenessProbe:
+        httpGet:
+          port: 80
+          path: /
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        successThreshold: 1
+        failureThreshold: 1
+
+
+

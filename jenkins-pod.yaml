@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: jenkinspod
+  labels:
+    environment: prod
+    app: jenkins
+  namespace: prod  
+spec:
+  containers: 
+    - name: jenkinscont
+      image: jenkins/jenkins
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+      livenessProbe:
+        exec:
+          command:
+              - /bin/sh
+              - -ec
+              - touch /var/sandeep;
+        initialDelaySeconds: 5
+        periodSeconds: 5
+           

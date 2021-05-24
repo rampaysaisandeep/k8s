@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: livenessprobepod
+spec:
+  restartPolicy: Never      
+  containers:
+    - name: livenesscont
+      image: ubuntu:18.04
+      command:
+        - /bin/bash
+        - -ec
+        - touch /tmp/sandeep; sleep 30; rm /tmp/sandeep; sleep 600
+      livenessProbe:
+        exec:
+          command:
+            - cat
+            - /tmp/sandeep    
+        initialDelaySeconds: 5
+        periodSeconds: 5      

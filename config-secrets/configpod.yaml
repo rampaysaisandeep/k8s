@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: config-pod
+  labels:
+    app: config
+    environment: prod
+    namespace: prod
+spec:   
+  containers:
+    - image: alpine
+      name: alipine-cont
+      imagePullPolicy: Always
+      args:
+        - /bin/sh
+        - -c
+        - sleep 1d
+      ports:
+        - containerPort: 80    
+      envFrom:  
+        - configMapRef: 
+            name: firstconfig
+      volumeMounts:  
+        - mountPath: /etc/appconfig
+          name: secondconfig
+  volumes:  
+    - name: secondconfig
+      configMap: 
+        name: appconfig  

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: labels-demo
+  labels: 
+     app: nginx
+     env: prod
+     project: v05g
+  annotations:
+     website: https://saisandeep.com/
+spec:
+  containers:
+     - name: nginx-pod
+       image: nginx
+       ports:
+         - containerPort: 80  

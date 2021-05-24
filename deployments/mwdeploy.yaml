@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mw-deploy
+  labels:
+    app: middleware
+    environment: prod
+spec:
+  minReadySeconds: 10
+  replicas: 3
+  selector:
+    matchLabels:
+      app: middleware
+      environment: prod
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: middleware
+        environment: prod
+      name: nginx-pod
+    spec:
+      containers:
+        - name: middleware-cont
+          image: httpd
+          ports:
+            - containerPort: 80
+              protocol: TCP
